@@ -66,6 +66,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/mouse-position.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/js\/mouse-position.js",
+		"outputAbbreviatedPath": "\/js\/min\/mouse-position-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/scripts-min.js": {
 		"fileType": 64,
 		"ignore": 1,

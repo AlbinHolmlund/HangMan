@@ -1,5 +1,7 @@
 
 
+// @codekit-append "mouse-position.js"
+
 /**** ITEMS IN SCENE ****/
 
 /** Sun **/
