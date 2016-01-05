@@ -1,16 +1,5 @@
 
 
-/**** ITEMS IN SCENE ****/
-
-/** Sun **/
-// @codekit-append "items/sun.js"
-
-/** Tree **/
-// @codekit-append "items/tree.js"
-
-
-
-
 (function (){
 	// Draw the sun
 	var sun = $('<div>');
@@ -61,18 +50,4 @@
 	// Init
 	MoveTo.add(sunPos);*/
 })($);
-
-
-
-
-
-
-(function (){
-	var tree = $('<div>');
-	tree.addClass('tree');
-
-	$('body').append(tree);
-
-})($);
-
 
