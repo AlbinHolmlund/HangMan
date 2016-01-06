@@ -1,5 +1,4 @@
 
-/** Get a position variable based on mouse position to add to planets x and y values **/
 (function (){
 	// The mouse x and y values
 	var mouse = {
@@ -16,6 +15,8 @@
 			}
 		}
 	};
+	
+	// Bind the mouse position to the global scope
 	window['mousePos'] = mouse.values;
 
 	// Start incrementing variables "current" values towards there "to"-values.

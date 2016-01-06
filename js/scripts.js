@@ -1,6 +1,7 @@
 
 
 // @codekit-append "mouse-position.js"
+// @codekit-append "init-word.js"
 
 /**** ITEMS IN SCENE ****/
 

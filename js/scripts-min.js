@@ -1,6 +1,7 @@
 
 
 // @codekit-append "mouse-position.js"
+// @codekit-append "init-word.js"
 
 /**** ITEMS IN SCENE ****/
 
@@ -12,7 +13,6 @@
 
 
 
-/** Get a position variable based on mouse position to add to planets x and y values **/
 (function (){
 	// The mouse x and y values
 	var mouse = {
@@ -29,6 +29,8 @@
 			}
 		}
 	};
+	
+	// Bind the mouse position to the global scope
 	window['mousePos'] = mouse.values;
 
 	// Start incrementing variables "current" values towards there "to"-values.
@@ -44,6 +46,39 @@
 		mouse.values.x.to = xx;
 		mouse.values.y.to = yy;
 	});
+})($);
+
+
+
+
+(function (){
+
+	// Elements
+	var currentWord = 'HELLO';
+	window['currentWord'] = currentWord;
+
+	var $word, $underscores;
+
+	function initWord(){
+		$underscores.html('');
+
+		for (var i = 0; i < currentWord.length; i++){
+			// Print underscores
+			var $underscore = $('<span>');
+			$underscore.attr('data-letter', i);
+			$underscore.html('_');
+
+			$underscores.append($underscore);
+		}
+	}
+
+	$(document).ready(function (){
+		$word = $('.word');
+		$underscores = $word.find('.underscores');
+
+		initWord();
+	});
+
 })($);
 
 
