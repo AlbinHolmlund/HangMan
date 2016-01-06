@@ -1,34 +1,38 @@
+/*
+	TODO:
+		Fix a nice animation when reinitiating a word.
+*/
 
 
+// Elements
+var $word, $underscores;
 
-(function (){
+// Init a word
+function initWord(word){
+	// Set the word
+	window['currentWord'] = word;
 
-	// Elements
-	var currentWord = 'HELLO';
-	window['currentWord'] = currentWord;
+	// Empty the underscores
+	$underscores.html('');
 
-	var $word, $underscores;
+	// Remove all letters
+	$('.letter').remove();
 
-	function initWord(){
-		// Empty the underscores
-		$underscores.html('');
+	// Add the underscores
+	for (var i = 0; i < currentWord.length; i++){
+		// Print underscores
+		var $underscore = $('<span>');
+		$underscore.attr('data-letter', i);
+		$underscore.html('_');
 
-		// Add the underscores
-		for (var i = 0; i < currentWord.length; i++){
-			// Print underscores
-			var $underscore = $('<span>');
-			$underscore.attr('data-letter', i);
-			$underscore.html('_');
-
-			$underscores.append($underscore);
-		}
+		$underscores.append($underscore);
 	}
+}
 
-	$(document).ready(function (){
-		$word = $('.word');
-		$underscores = $word.find('.underscores');
+$(document).ready(function (){
+	$word = $('.word');
+	$underscores = $word.find('.underscores');
 
-		initWord();
-	});
-
-})($);
+	// Init
+	initWord('JAVASCRIPT');
+});

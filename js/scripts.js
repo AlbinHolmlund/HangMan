@@ -13,3 +13,13 @@
 
 /** Tree **/
 // @codekit-append "items/tree.js"
+
+
+
+// Set font sizes
+MoveTo.addFrame(function (){
+	// Main font size
+	$('html').css({
+		fontSize: $('#scene').width()/100
+	});
+});

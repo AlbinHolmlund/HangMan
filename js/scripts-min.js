@@ -16,6 +16,15 @@
 
 
 
+// Set font sizes
+MoveTo.addFrame(function (){
+	// Main font size
+	$('html').css({
+		fontSize: $('#scene').width()/100
+	});
+});
+
+
 (function (){
 	// The mouse x and y values
 	var mouse = {
@@ -51,42 +60,49 @@
 	});
 })($);
 
+/*
+	TODO:
+		Fix a nice animation when reinitiating a word.
+*/
 
 
+// Elements
+var $word, $underscores;
 
-(function (){
+// Init a word
+function initWord(word){
+	// Set the word
+	window['currentWord'] = word;
 
-	// Elements
-	var currentWord = 'HELLO';
-	window['currentWord'] = currentWord;
+	// Empty the underscores
+	$underscores.html('');
 
-	var $word, $underscores;
+	// Remove all letters
+	$('.letter').remove();
 
-	function initWord(){
-		// Empty the underscores
-		$underscores.html('');
+	// Add the underscores
+	for (var i = 0; i < currentWord.length; i++){
+		// Print underscores
+		var $underscore = $('<span>');
+		$underscore.attr('data-letter', i);
+		$underscore.html('_');
 
-		// Add the underscores
-		for (var i = 0; i < currentWord.length; i++){
-			// Print underscores
-			var $underscore = $('<span>');
-			$underscore.attr('data-letter', i);
-			$underscore.html('_');
-
-			$underscores.append($underscore);
-		}
+		$underscores.append($underscore);
 	}
+}
 
-	$(document).ready(function (){
-		$word = $('.word');
-		$underscores = $word.find('.underscores');
+$(document).ready(function (){
+	$word = $('.word');
+	$underscores = $word.find('.underscores');
 
-		initWord();
-	});
+	// Init
+	initWord('JAVASCRIPT');
+});
 
-})($);
 
-
+/*
+	Check if letter i used before.
+*/
 
 // Create a letter
 function createLetter(letter, underscore){
@@ -115,6 +131,9 @@ function createLetter(letter, underscore){
 
 	// Position letters each frame
 	MoveTo.addFrame(function (){
+		pos.values.top.to = underscore.offset().top - ($('#scene').width()/100);
+		pos.values.left.to = underscore.offset().left + ($('#scene').width()/100);
+
 		$letter.css({
 			top: pos.values.top.current,
 			left: pos.values.left.current
@@ -127,9 +146,13 @@ function createLetter(letter, underscore){
 
 // Check if letter exist in word
 function checkLetter(letter){
+	var letterExist = false;
+
 	for (var i = 0; i < currentWord.length; i++){
 		if (currentWord[i] === letter){
 			/** Match **/
+			letterExist = true;
+
 			// Get underscore matching the letter
 			var $underscore = $('[data-letter="' + i + '"]');
 
@@ -137,6 +160,8 @@ function checkLetter(letter){
 			createLetter(letter, $underscore);
 		}
 	}
+
+	return letterExist;
 }
 
 

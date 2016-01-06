@@ -50,6 +50,11 @@ body{
 	bottom: $borderWidth;*/
 }
 
+h2{
+	font-weight: 400;
+	font-size: 2.5rem;
+}
+
 
 @mixin viewportRatio($x, $y) {
   width: 100vw;
@@ -71,6 +76,8 @@ body{
 
 
 /**** GAME UI ****/
+$wordFontSize: 3rem; //7rem;
+$uiPadding: 2rem;
 #ui{
 	position: absolute;
 	top: 50%;
@@ -78,18 +85,49 @@ body{
 	width: 40%;
 	transform: translateY(-50%);
 
-	background: rgba(red, 0.2);
+	padding: $uiPadding;
+
+	//background: rgba(red, 0.2);
 
 	z-index: $uiLayer;
 
 	// The word
 	.word{
 		.underscores{
-			font-size: 7rem;
-			text-align: center;
+			font-size: $wordFontSize;
 			span{
-				margin: 0 1rem;
+				margin: 0;
+				margin-right: 0.2em * 2;
 			}
+		}
+	}
+	// The clue
+	.clue{
+		margin-top: 2rem;
+	
+		color: #fff;
+
+		margin-left: -$uiPadding;
+		padding: $uiPadding;
+
+		background-image: url(./img/texture1.svg);
+		background-position: center;
+		background-size: 100% auto;
+
+		&-title, &-text{
+			margin: 0;
+			margin-left: 1rem;
+			font-weight: 400;
+			font-size: 2.5rem;
+		}
+	}
+	// Guess letter
+	.guess-letter{
+		margin-left: 1rem;
+		&-input{
+			width: 100px;
+			height: 100px;
+			background: red;
 		}
 	}
 }
@@ -97,7 +135,7 @@ body{
 // Letter
 .letter{
 	position: absolute;
-	font-size: 7rem;
+	font-size: $wordFontSize;
 }
 
 /**** ITEMS ****/

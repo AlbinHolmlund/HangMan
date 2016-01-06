@@ -28,6 +28,10 @@ body {
   right: $borderWidth;
   bottom: $borderWidth;*/ }
 
+h2 {
+  font-weight: 400;
+  font-size: 2.5rem; }
+
 #scene {
   position: absolute;
   top: 50%;
@@ -47,17 +51,36 @@ body {
   left: 0;
   width: 40%;
   transform: translateY(-50%);
-  background: rgba(255, 0, 0, 0.2);
+  padding: 2rem;
   z-index: 1000; }
   #ui .word .underscores {
-    font-size: 7rem;
-    text-align: center; }
+    font-size: 3rem; }
     #ui .word .underscores span {
-      margin: 0 1rem; }
+      margin: 0;
+      margin-right: 0.4em; }
+  #ui .clue {
+    margin-top: 2rem;
+    color: #fff;
+    margin-left: -2rem;
+    padding: 2rem;
+    background-image: url(./img/texture1.svg);
+    background-position: center;
+    background-size: 100% auto; }
+    #ui .clue-title, #ui .clue-text {
+      margin: 0;
+      margin-left: 1rem;
+      font-weight: 400;
+      font-size: 2.5rem; }
+  #ui .guess-letter {
+    margin-left: 1rem; }
+    #ui .guess-letter-input {
+      width: 100px;
+      height: 100px;
+      background: red; }
 
 .letter {
   position: absolute;
-  font-size: 7rem; }
+  font-size: 3rem; }
 
 /**** ITEMS ****/
 .sun {

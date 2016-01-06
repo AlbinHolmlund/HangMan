@@ -1,4 +1,6 @@
-
+/*
+	Check if letter i used before.
+*/
 
 // Create a letter
 function createLetter(letter, underscore){
@@ -27,6 +29,9 @@ function createLetter(letter, underscore){
 
 	// Position letters each frame
 	MoveTo.addFrame(function (){
+		pos.values.top.to = underscore.offset().top - ($('#scene').width()/100);
+		pos.values.left.to = underscore.offset().left + ($('#scene').width()/100);
+
 		$letter.css({
 			top: pos.values.top.current,
 			left: pos.values.left.current
@@ -39,9 +44,13 @@ function createLetter(letter, underscore){
 
 // Check if letter exist in word
 function checkLetter(letter){
+	var letterExist = false;
+
 	for (var i = 0; i < currentWord.length; i++){
 		if (currentWord[i] === letter){
 			/** Match **/
+			letterExist = true;
+
 			// Get underscore matching the letter
 			var $underscore = $('[data-letter="' + i + '"]');
 
@@ -49,4 +58,6 @@ function checkLetter(letter){
 			createLetter(letter, $underscore);
 		}
 	}
+
+	return letterExist;
 }
