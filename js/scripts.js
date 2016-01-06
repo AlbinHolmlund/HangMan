@@ -1,7 +1,10 @@
 
 
 // @codekit-append "mouse-position.js"
+
 // @codekit-append "init-word.js"
+
+// @codekit-append "check-letter.js"
 
 /**** ITEMS IN SCENE ****/
 

@@ -55,6 +55,10 @@ body {
     #ui .word .underscores span {
       margin: 0 1rem; }
 
+.letter {
+  position: absolute;
+  font-size: 7rem; }
+
 /**** ITEMS ****/
 .sun {
   position: absolute;
