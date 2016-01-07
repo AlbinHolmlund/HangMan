@@ -125,9 +125,23 @@ $uiPadding: 2rem;
 	.guess-letter{
 		margin-left: 1rem;
 		&-input{
-			width: 100px;
-			height: 100px;
-			background: red;
+			input{
+				outline: none;
+				border: none;
+
+				color: #fff;
+				height: 200px;
+				width: 200px;
+
+				text-align: center;
+				font-size: $wordFontSize;
+				font-family: inherit;
+
+				background-image: url(./img/texture2.svg);
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+			}
 		}
 	}
 }
@@ -136,6 +150,7 @@ $uiPadding: 2rem;
 .letter{
 	position: absolute;
 	font-size: $wordFontSize;
+	color: red;
 }
 
 /**** ITEMS ****/

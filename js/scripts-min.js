@@ -109,10 +109,13 @@ function createLetter(letter, underscore){
 	var $letter = $('<div>');
 	$letter.addClass('letter');
 	$letter.html(letter);
+	// Append
+	$('body').append($letter);
 
 	// Init position at the input box
-	var initTop = 50,
-		initLeft = 50;
+	var $input = $('.guess-letter-input input');
+	var initTop = $input.offset().top + ($input.height()/2) - ($letter.height()/2),
+		initLeft = $input.offset().left + ($input.width()/2) - ($letter.width()/2);
 
 	// Move to position
 	var pos = {
@@ -140,8 +143,6 @@ function createLetter(letter, underscore){
 		});
 	});
 
-	// Append
-	$('body').append($letter);
 }
 
 // Check if letter exist in word
@@ -163,6 +164,13 @@ function checkLetter(letter){
 
 	return letterExist;
 }
+
+// Add more input submit events?
+$('.guess-letter-input input').on('keyup', function (e){
+	if (e.which === 13){
+		
+	}
+});
 
 
 
