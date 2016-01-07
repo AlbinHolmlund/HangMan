@@ -77,11 +77,12 @@ h2 {
       outline: none;
       border: none;
       color: #fff;
-      height: 200px;
-      width: 200px;
+      height: 10rem;
+      width: 10rem;
       text-align: center;
       font-size: 3rem;
       font-family: inherit;
+      background: none;
       background-image: url(./img/texture2.svg);
       background-position: center;
       background-repeat: no-repeat;
@@ -90,7 +91,8 @@ h2 {
 .letter {
   position: absolute;
   font-size: 3rem;
-  color: red; }
+  color: #fff;
+  mix-blend-mode: difference; }
 
 /**** ITEMS ****/
 .sun {
@@ -116,3 +118,69 @@ h2 {
   background-position: 90% bottom;
   background-repeat: no-repeat;
   z-index: 70; }
+
+.man {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: 10000; }
+
+.rope {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 394px;
+  width: 18px;
+  background-image: url(./img/man/rope.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform-origin: center top; }
+  .rope .body {
+    position: absolute;
+    width: 164px;
+    height: 661px;
+    top: 100%;
+    left: -82px;
+    background-image: url(./img/man/body.png);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat; }
+    .rope .body .head {
+      position: absolute;
+      width: 126px;
+      height: 164px;
+      top: -139px;
+      left: 0;
+      background-image: url(./img/man/head.png);
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform-origin: center bottom;
+      transform: rotate(0deg); }
+    .rope .body .feet {
+      position: absolute;
+      width: 143px;
+      height: 98px;
+      margin-top: -25px;
+      top: 100%;
+      left: 10px;
+      background-image: url(./img/man/feet.png);
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform-origin: center top;
+      transform: rotate(0deg); }
+    .rope .body .chair {
+      position: absolute;
+      width: 196px;
+      height: 208px;
+      margin-top: 10px;
+      top: 100%;
+      left: -15px;
+      background-image: url(./img/man/chair.png);
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform-origin: right bottom;
+      transform: rotate(0deg); }

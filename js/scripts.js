@@ -14,6 +14,9 @@
 /** Tree **/
 // @codekit-append "items/tree.js"
 
+/** Man **/
+// @codekit-append "items/man.js"
+
 
 
 // Set font sizes

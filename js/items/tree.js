@@ -9,8 +9,11 @@
 
 	// Position based on mouse position
 	MoveTo.addFrame(function (){
+		// Tree position
+		window['treePos'] = -mousePos.x.current * 0.05;
+		
 		tree.css({
-			left: -mousePos.x.current * 0.05
+			left: treePos
 		});
 	});
 

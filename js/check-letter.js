@@ -7,6 +7,7 @@ function createLetter(letter, underscore){
 	var $letter = $('<div>');
 	$letter.addClass('letter');
 	$letter.html(letter);
+
 	// Append
 	$('body').append($letter);
 
@@ -44,20 +45,26 @@ function createLetter(letter, underscore){
 }
 
 // Check if letter exist in word
+var usedLetters = {};
 function checkLetter(letter){
 	var letterExist = false;
 
-	for (var i = 0; i < currentWord.length; i++){
-		if (currentWord[i] === letter){
-			/** Match **/
-			letterExist = true;
+	// Check if letter is used
+	if (!usedLetters[letter]){
+		for (var i = 0; i < currentWord.length; i++){
+			if (currentWord[i] === letter){
+				/** Match **/
+				letterExist = true;
 
-			// Get underscore matching the letter
-			var $underscore = $('[data-letter="' + i + '"]');
+				// Get underscore matching the letter
+				var $underscore = $('[data-letter="' + i + '"]');
 
-			// Create the letter
-			createLetter(letter, $underscore);
+				// Create the letter
+				createLetter(letter, $underscore);
+			}
 		}
+		// Letter is used
+		usedLetters[letter] = true;
 	}
 
 	return letterExist;
@@ -65,7 +72,19 @@ function checkLetter(letter){
 
 // Add more input submit events?
 $('.guess-letter-input input').on('keyup', function (e){
+	var $this = $(this);
+	var letter = $this.val().toUpperCase();
+
+	if (letter.length > 1){
+		$this.val(letter[0]);
+	}
+
+	// Enter event
 	if (e.which === 13){
-		
+		var check = checkLetter(letter);
+		$this.val('');
+		if (check === true){
+			//$this.blur();
+		}
 	}
 });

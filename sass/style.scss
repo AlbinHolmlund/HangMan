@@ -130,13 +130,14 @@ $uiPadding: 2rem;
 				border: none;
 
 				color: #fff;
-				height: 200px;
-				width: 200px;
+				height: 10rem;
+				width: 10rem;
 
 				text-align: center;
 				font-size: $wordFontSize;
 				font-family: inherit;
 
+				background: none;
 				background-image: url(./img/texture2.svg);
 				background-position: center;
 				background-repeat: no-repeat;
@@ -150,7 +151,9 @@ $uiPadding: 2rem;
 .letter{
 	position: absolute;
 	font-size: $wordFontSize;
-	color: red;
+	color: #fff;
+
+    mix-blend-mode: difference;
 }
 
 /**** ITEMS ****/
@@ -191,4 +194,103 @@ $uiPadding: 2rem;
 	background-repeat: no-repeat;
 
 	z-index: $treeLayer;
+}
+
+// Man
+.man{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+
+	z-index: 10000;
+}
+.rope{
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	height: 394px;
+	width: 18px;
+
+	background-image: url(./img/man/rope.png);
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	transform-origin: center top;
+	
+	.body{
+		position: absolute;
+
+		width: 164px;
+		height: 661px;
+
+		top: 100%;
+		left: -164px * 0.5;
+
+		background-image: url(./img/man/body.png);
+		background-size: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+
+		.head{
+			position: absolute;
+
+			width: 126px;
+			height: 164px;
+
+			top: -164px + 25px; // + offset
+			left: 0;
+
+			background-image: url(./img/man/head.png);
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+
+			transform-origin: center bottom;
+
+			// Test
+			transform: rotate(-0deg); // -20deg
+		}
+		.feet{
+			position: absolute;
+
+			width: 143px;
+			height: 98px;
+
+			margin-top: -25px;
+			top: 100%; // + offset
+			left: 10px;
+
+			background-image: url(./img/man/feet.png);
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+
+			transform-origin: center top;
+
+			// Test
+			transform: rotate(-0deg); // -20deg
+		}
+		.chair{
+			position: absolute;
+
+			width: 196px;
+			height: 208px;
+			
+			margin-top: 10px;
+			top: 100%; // + offset
+			left: -15px;
+
+			background-image: url(./img/man/chair.png);
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+
+			transform-origin: right bottom;
+
+			// Test
+			transform: rotate(0deg); // 45deg
+		}
+	}
 }

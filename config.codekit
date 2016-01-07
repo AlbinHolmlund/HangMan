@@ -2,6 +2,61 @@
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
 "creatorBuild": "19033",
 "files": {
+	"\/img\/man\/body.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 21782,
+		"inputAbbreviatedPath": "\/img\/man\/body.png",
+		"outputAbbreviatedPath": "\/img\/man\/body.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/man\/chair.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 23433,
+		"inputAbbreviatedPath": "\/img\/man\/chair.png",
+		"outputAbbreviatedPath": "\/img\/man\/chair.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/man\/feet.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 14365,
+		"inputAbbreviatedPath": "\/img\/man\/feet.png",
+		"outputAbbreviatedPath": "\/img\/man\/feet.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/man\/head.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 20681,
+		"inputAbbreviatedPath": "\/img\/man\/head.png",
+		"outputAbbreviatedPath": "\/img\/man\/head.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/man\/rope.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 4185,
+		"inputAbbreviatedPath": "\/img\/man\/rope.png",
+		"outputAbbreviatedPath": "\/img\/man\/rope.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/img\/tree.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -61,6 +116,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/init-word.js",
 		"outputAbbreviatedPath": "\/js\/min\/init-word-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/items\/man.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/items\/man.js",
+		"outputAbbreviatedPath": "\/js\/items\/min\/man-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
