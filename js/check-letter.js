@@ -21,11 +21,11 @@ function createLetter(letter, underscore){
 		values: {
 			top: {
 				current: initTop,
-				to: underscore.offset().top - ($('#scene').width()/100)
+				to: initTop
 			},
 			left: {
 				current: initLeft,
-				to: underscore.offset().left + ($('#scene').width()/100)
+				to: initLeft
 			}
 		}
 	}
@@ -33,8 +33,8 @@ function createLetter(letter, underscore){
 
 	// Position letters each frame
 	MoveTo.addFrame(function (){
-		pos.values.top.to = underscore.offset().top - ($('#scene').width()/100);
-		pos.values.left.to = underscore.offset().left + ($('#scene').width()/100);
+		pos.values.top.to = underscore.offset().top - ($('#scene').width() * 0.01);
+		pos.values.left.to = underscore.offset().left + ($('#scene').width() * 0.005);
 
 		$letter.css({
 			top: pos.values.top.current,
@@ -71,20 +71,25 @@ function checkLetter(letter){
 }
 
 // Add more input submit events?
-$('.guess-letter-input input').on('keyup', function (e){
+$('.guess-letter-input input').on('input', function (e){
 	var $this = $(this);
 	var letter = $this.val().toUpperCase();
+
+	console.log(letter);
 
 	if (letter.length > 1){
 		$this.val(letter[0]);
 	}
 
 	// Enter event
-	if (e.which === 13){
+	//if (e.which === 13){
 		var check = checkLetter(letter);
 		$this.val('');
 		if (check === true){
 			//$this.blur();
 		}
-	}
+	//
+});
+$(document).on('keydown', function (){
+	$('.guess-letter-input input').focus();
 });

@@ -126,11 +126,11 @@ function createLetter(letter, underscore){
 		values: {
 			top: {
 				current: initTop,
-				to: underscore.offset().top - ($('#scene').width()/100)
+				to: initTop
 			},
 			left: {
 				current: initLeft,
-				to: underscore.offset().left + ($('#scene').width()/100)
+				to: initLeft
 			}
 		}
 	}
@@ -138,8 +138,8 @@ function createLetter(letter, underscore){
 
 	// Position letters each frame
 	MoveTo.addFrame(function (){
-		pos.values.top.to = underscore.offset().top - ($('#scene').width()/100);
-		pos.values.left.to = underscore.offset().left + ($('#scene').width()/100);
+		pos.values.top.to = underscore.offset().top - ($('#scene').width() * 0.01);
+		pos.values.left.to = underscore.offset().left + ($('#scene').width() * 0.005);
 
 		$letter.css({
 			top: pos.values.top.current,
@@ -176,22 +176,27 @@ function checkLetter(letter){
 }
 
 // Add more input submit events?
-$('.guess-letter-input input').on('keyup', function (e){
+$('.guess-letter-input input').on('input', function (e){
 	var $this = $(this);
 	var letter = $this.val().toUpperCase();
+
+	console.log(letter);
 
 	if (letter.length > 1){
 		$this.val(letter[0]);
 	}
 
 	// Enter event
-	if (e.which === 13){
+	//if (e.which === 13){
 		var check = checkLetter(letter);
 		$this.val('');
 		if (check === true){
 			//$this.blur();
 		}
-	}
+	//
+});
+$(document).on('keydown', function (){
+	$('.guess-letter-input input').focus();
 });
 
 
@@ -208,7 +213,7 @@ $('.guess-letter-input input').on('keyup', function (e){
 	MoveTo.addFrame(function (){
 		sun.css({
 			left: ($('#scene').width()/2) - (mousePos.x.current * 0.1),
-			top: ($('#scene').height()/2) - (mousePos.y.current * 0.1),
+			top: ($('#scene').height()/2) - (mousePos.y.current * 0.2),
 
 			width: $('#scene').width() * sunSizeMultip,
 			height: $('#scene').width() * sunSizeMultip,
@@ -286,6 +291,8 @@ $('.guess-letter-input input').on('keyup', function (e){
 
 
 (function (){
+	// Must move the whole body downwards.
+	// A gravestone rise?
 
 	// Elements
 	var $man   = $('<div class="man">'),
@@ -300,7 +307,7 @@ $('.guess-letter-input input').on('keyup', function (e){
 	$('#scene').append($man);
 	$man.append($rope);
 	$rope.append($body);
-	$body.append($head, $feet, $chair);
+	$body.append($head, $feet);
 
 	// Position
 	MoveTo.addFrame(function (){
@@ -325,6 +332,16 @@ $('.guess-letter-input input').on('keyup', function (e){
 				current: 0,
 				to: 0,
 				speed: 100
+			},
+			head: {
+				current: 0,
+				to: 0,
+				speed: 40
+			},
+			feet: {
+				current: 0,
+				to: 0,
+				speed: 40
 			}
 		}
 	};
@@ -335,6 +352,13 @@ $('.guess-letter-input input').on('keyup', function (e){
 
 	MoveTo.add(manRotations);
 	MoveTo.addFrame(function (){
+
+		$head.css({
+			transform: 'rotate(' + manRotations.values.head.current + 'deg)'
+		});
+		$feet.css({
+			transform: 'rotate(' + manRotations.values.feet.current + 'deg)'
+		});
 
 		// Rope swing
 		if (manStates.ropeSwing === true){
@@ -354,91 +378,17 @@ $('.guess-letter-input input').on('keyup', function (e){
 
 	// TEST: Activate states
 	$('body').click(function (){
-		// Activate rope swing
+		manRotations.values.head.to = -20;
+		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
 		manRotations.values.rope.to = 5;
 	});
+	/*$('body').click(function (){
+		// Activate rope swing
+		manStates.ropeSwing = true;
+		manRotations.values.rope.to = 5;
+	});*/
 
 })($);
 
-/*
-
-(function (){
-
-	// Body parts objects
-	var $man = $('<div>'),
-		$rope  = {},
-		$head  = {},
-		$body  = {},
-		$feet  = {},
-		$chair = {};
-
-	// Other scene elements
-	var $tree = $('.tree');
-
-	// The man containing all the other elements
-	$man.addClass('man');
-	MoveTo.addFrame(function (){
-		var top = $tree.height() * 0.415,
-			left = ($tree.offset().left - $('#scene').offset().left) + ($tree.width() * 0.555);
-		$man.css({
-			top: top,
-			left: left
-		});
-	});
-
-	$('#scene').append($man);
-
-	// The rope
-	$rope.el = $('<div>');
-	$rope.el.addClass('rope');
-
-	$rope.pos = {
-		values: {
-			rotate: {
-				current: 0,
-				to: 0
-			}
-		}
-	};
-	MoveTo.add($rope.pos);
-
-	MoveTo.addFrame(function (){
-		var rotate = $rope.pos.values.rotate.current;
-
-		$rope.el.css({
-			transform: 'rotate(' + rotate + 'deg)'
-		});
-
-		// Size
-		var sizeMultip = 0.20;
-		var ropeWHRatio = 18 / 394;// Width height ratio
-		var ropeHeight = $tree.height() * sizeMultip;
-		var ropeWidth = ropeHeight * ropeWHRatio;
-		$rope.el.css({
-			height: ropeHeight,
-			width: ropeWidth
-		});
-	});
-
-	$man.append($rope.el);
-
-	// The head (inside rope)
-	$head.el = $('<div>');
-	$head.el.addClass('head');
-
-	/*MoveTo.addFrame(function (){
-		var sizeMultip = 0.20;
-		var WHRatio = 126 / 164;// Width height ratio
-		var height = $tree.height() * sizeMultip;
-		var width = height * WHRatio;
-		$head.el.css({
-			height: height,
-			width: width
-		});
-	});*/
-
-	/*$rope.el.append($head.el);
-
-})($);*/
 

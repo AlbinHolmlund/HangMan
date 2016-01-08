@@ -73,6 +73,18 @@ h2{
 
 	@include viewportRatio(16,9);
 }
+h1{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+
+	margin: 0;
+
+	font-size: 48px;
+	font-family: Lato;
+	font-weight: 100;
+	text-transform: lowercase;
+}
 
 
 /**** GAME UI ****/
