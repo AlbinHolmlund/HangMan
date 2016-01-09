@@ -52,6 +52,25 @@ MoveTo.addFrame(function (){
 });
 
 
+
+
+
+var $ui = $('#ui');
+MoveTo.addFrame(function (){
+	var top = -$ui.height()/2,
+		left = 0;
+
+	top -= Hangman.positions.mousePos.y.current * 0.05;
+	left -= Hangman.positions.mousePos.x.current * 0.05;
+
+	var trans = "translate(" + left + "px, " + top + "px) ";
+
+	$ui.css({
+		transform: trans
+	});
+});
+
+
 (function (){
 	// The mouse x and y values
 	var mouse = {
