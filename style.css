@@ -38,7 +38,6 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-  overflow: hidden;
   width: 100vw;
   height: 56.25vw;
   max-width: 177.7777777778vh;

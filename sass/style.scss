@@ -69,7 +69,7 @@ h2{
 	transform: translate(-50%, -50%);
 
 	margin: 0 auto;
-	overflow: hidden;
+	//overflow: hidden;
 
 	@include viewportRatio(16,9);
 }
