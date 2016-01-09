@@ -6,21 +6,24 @@
 
 (function (){
 	// Elements
-	var $word, $underscores;
+	var $word, $clue, $underscores;
 
 	// Init a word
-	function initWord(word){
-		// Set the word
-		Hangman.currentWord = word;
+	function initWord(word, clue){
+		// Resets
+		Hangman.usedLetters = {};
 
 		// Empty the underscores
 		$underscores.html('');
 
-		// Resets
-		Hangman.usedLetters = {};
-
 		// Remove all letters
 		$('.letter').remove();
+
+		// Set the word
+		Hangman.currentWord = word;
+
+		// Set the clue
+		$clue.html(clue);
 
 		// Add the underscores
 		for (var i = 0; i < Hangman.currentWord.length; i++){
@@ -35,9 +38,11 @@
 
 	$(document).ready(function (){
 		$word = $('.word');
+		$clue = $('.clue .clue-text');
 		$underscores = $word.find('.underscores');
 
 		// Init
-		initWord('JAVASCRIPT');
+		var firstWord = HangmanWords[0];
+		initWord(firstWord.word, firstWord.clue);
 	});
 })($);

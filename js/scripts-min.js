@@ -4,6 +4,16 @@
 	The hangman object to store all javascript cross-file functions and 
 	variables so they're saved on the global scope. 
 */
+HangmanWords = [
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	}
+];
 Hangman = {
 	currentWord: null,
 	usedLetters: {},
@@ -83,21 +93,24 @@ MoveTo.addFrame(function (){
 
 (function (){
 	// Elements
-	var $word, $underscores;
+	var $word, $clue, $underscores;
 
 	// Init a word
-	function initWord(word){
-		// Set the word
-		Hangman.currentWord = word;
+	function initWord(word, clue){
+		// Resets
+		Hangman.usedLetters = {};
 
 		// Empty the underscores
 		$underscores.html('');
 
-		// Resets
-		Hangman.usedLetters = {};
-
 		// Remove all letters
 		$('.letter').remove();
+
+		// Set the word
+		Hangman.currentWord = word;
+
+		// Set the clue
+		$clue.html(clue);
 
 		// Add the underscores
 		for (var i = 0; i < Hangman.currentWord.length; i++){
@@ -112,10 +125,12 @@ MoveTo.addFrame(function (){
 
 	$(document).ready(function (){
 		$word = $('.word');
+		$clue = $('.clue .clue-text');
 		$underscores = $word.find('.underscores');
 
 		// Init
-		initWord('JAVASCRIPT');
+		var firstWord = HangmanWords[0];
+		initWord(firstWord.word, firstWord.clue);
 	});
 })($);
 
@@ -280,7 +295,7 @@ $(document).on('keydown', function (){
 	$('#scene').append($man);
 	$man.append($rope);
 	$rope.append($body);
-	$body.append($head, $feet);
+	$body.append($head, $feet, $chair);
 
 	// Position
 	MoveTo.addFrame(function (){
@@ -355,6 +370,8 @@ $(document).on('keydown', function (){
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
 		manRotations.values.rope.to = 5;
+
+		$chair.addClass('pushed');
 	});
 	/*$('body').click(function (){
 		// Activate rope swing

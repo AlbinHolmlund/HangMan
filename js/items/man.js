@@ -17,7 +17,7 @@
 	$('#scene').append($man);
 	$man.append($rope);
 	$rope.append($body);
-	$body.append($head, $feet);
+	$body.append($head, $feet, $chair);
 
 	// Position
 	MoveTo.addFrame(function (){
@@ -92,6 +92,8 @@
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
 		manRotations.values.rope.to = 5;
+
+		$chair.addClass('pushed');
 	});
 	/*$('body').click(function (){
 		// Activate rope swing

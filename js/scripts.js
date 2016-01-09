@@ -4,6 +4,16 @@
 	The hangman object to store all javascript cross-file functions and 
 	variables so they're saved on the global scope. 
 */
+HangmanWords = [
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	}
+];
 Hangman = {
 	currentWord: null,
 	usedLetters: {},

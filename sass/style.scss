@@ -136,6 +136,10 @@ $uiPadding: 2rem;
 	// Guess letter
 	.guess-letter{
 		margin-left: 1rem;
+		h2{
+			margin: 0;
+			margin-top: 3rem;
+		}
 		&-input{
 			input{
 				outline: none;
@@ -301,8 +305,16 @@ $uiPadding: 2rem;
 
 			transform-origin: right bottom;
 
+			transition: all 0.4s;
+
 			// Test
 			transform: rotate(0deg); // 45deg
+
+			// States
+			&.pushed{
+				transform: rotate(80deg)
+						   translate(100%, 100%);
+			}
 		}
 	}
 }
