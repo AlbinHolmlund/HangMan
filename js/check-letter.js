@@ -45,14 +45,13 @@ function createLetter(letter, underscore){
 }
 
 // Check if letter exist in word
-var usedLetters = {};
 function checkLetter(letter){
 	var letterExist = false;
 
 	// Check if letter is used
-	if (!usedLetters[letter]){
-		for (var i = 0; i < currentWord.length; i++){
-			if (currentWord[i] === letter){
+	if (!Hangman.usedLetters[letter]){
+		for (var i = 0; i < Hangman.currentWord.length; i++){
+			if (Hangman.currentWord[i] === letter){
 				/** Match **/
 				letterExist = true;
 
@@ -64,7 +63,7 @@ function checkLetter(letter){
 			}
 		}
 		// Letter is used
-		usedLetters[letter] = true;
+		Hangman.usedLetters[letter] = true;
 	}
 
 	return letterExist;

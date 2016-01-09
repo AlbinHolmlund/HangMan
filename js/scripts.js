@@ -1,5 +1,16 @@
 
 
+/* 
+	The hangman object to store all javascript cross-file functions and 
+	variables so they're saved on the global scope. 
+*/
+Hangman = {
+	currentWord: null,
+	usedLetters: {}
+};
+
+
+
 // @codekit-append "mouse-position.js"
 
 // @codekit-append "init-word.js"
