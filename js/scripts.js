@@ -15,8 +15,10 @@ HangmanWords = [
 	}
 ];
 Hangman = {
+	currentIndex: 0,
 	currentWord: null,
 	usedLetters: {},
+	correctLetters: {},
 	positions: {}
 };
 

@@ -9,9 +9,13 @@
 	var $word, $clue, $underscores;
 
 	// Init a word
-	function initWord(word, clue){
+	Hangman.initWord = function (){
+		var word = HangmanWords[Hangman.currentIndex].word,
+			clue = HangmanWords[Hangman.currentIndex].clue;
+
 		// Resets
 		Hangman.usedLetters = {};
+		Hangman.correctLetters = {};
 
 		// Empty the underscores
 		$underscores.html('');
@@ -42,7 +46,7 @@
 		$underscores = $word.find('.underscores');
 
 		// Init
-		var firstWord = HangmanWords[0];
-		initWord(firstWord.word, firstWord.clue);
+		var firstWord = HangmanWords[Hangman.currentIndex];
+		Hangman.initWord();
 	});
 })($);
