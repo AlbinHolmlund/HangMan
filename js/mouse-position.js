@@ -17,7 +17,7 @@
 	};
 	
 	// Bind the mouse position to the global scope
-	window['mousePos'] = mouse.values;
+	Hangman.positions.mousePos = mouse.values;
 
 	// Start incrementing variables "current" values towards there "to"-values.
 	MoveTo.add(mouse);

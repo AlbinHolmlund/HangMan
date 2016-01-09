@@ -11,8 +11,8 @@
 		sunMarginMultip = 0.2;
 	MoveTo.addFrame(function (){
 		sun.css({
-			left: ($('#scene').width()/2) - (mousePos.x.current * 0.1),
-			top: ($('#scene').height()/2) - (mousePos.y.current * 0.2),
+			left: ($('#scene').width()/2) - (Hangman.positions.mousePos.x.current * 0.1),
+			top: ($('#scene').height()/2) - (Hangman.positions.mousePos.y.current * 0.2),
 
 			width: $('#scene').width() * sunSizeMultip,
 			height: $('#scene').width() * sunSizeMultip,

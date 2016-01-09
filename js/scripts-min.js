@@ -6,7 +6,8 @@
 */
 Hangman = {
 	currentWord: null,
-	usedLetters: {}
+	usedLetters: {},
+	positions: {}
 };
 
 
@@ -57,7 +58,7 @@ MoveTo.addFrame(function (){
 	};
 	
 	// Bind the mouse position to the global scope
-	window['mousePos'] = mouse.values;
+	Hangman.positions.mousePos = mouse.values;
 
 	// Start incrementing variables "current" values towards there "to"-values.
 	MoveTo.add(mouse);
@@ -226,8 +227,8 @@ $(document).on('keydown', function (){
 		sunMarginMultip = 0.2;
 	MoveTo.addFrame(function (){
 		sun.css({
-			left: ($('#scene').width()/2) - (mousePos.x.current * 0.1),
-			top: ($('#scene').height()/2) - (mousePos.y.current * 0.2),
+			left: ($('#scene').width()/2) - (Hangman.positions.mousePos.x.current * 0.1),
+			top: ($('#scene').height()/2) - (Hangman.positions.mousePos.y.current * 0.2),
 
 			width: $('#scene').width() * sunSizeMultip,
 			height: $('#scene').width() * sunSizeMultip,
@@ -250,10 +251,10 @@ $(document).on('keydown', function (){
 	// Position based on mouse position
 	MoveTo.addFrame(function (){
 		// Tree position
-		window['treePos'] = -mousePos.x.current * 0.05;
+		Hangman.positions.treePos = -Hangman.positions.mousePos.x.current * 0.05;
 		
 		tree.css({
-			left: treePos
+			left: Hangman.positions.treePos
 		});
 	});
 

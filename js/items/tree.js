@@ -10,10 +10,10 @@
 	// Position based on mouse position
 	MoveTo.addFrame(function (){
 		// Tree position
-		window['treePos'] = -mousePos.x.current * 0.05;
+		Hangman.positions.treePos = -Hangman.positions.mousePos.x.current * 0.05;
 		
 		tree.css({
-			left: treePos
+			left: Hangman.positions.treePos
 		});
 	});
 

@@ -6,7 +6,8 @@
 */
 Hangman = {
 	currentWord: null,
-	usedLetters: {}
+	usedLetters: {},
+	positions: {}
 };
 
 
