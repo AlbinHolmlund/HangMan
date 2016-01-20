@@ -16,12 +16,17 @@
 		// Resets
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
+		Hangman.guessesIndex = 0;
 
 		// Empty the underscores
 		$underscores.html('');
 
 		// Remove all letters
-		$('.letter').remove();
+		//$('.letter').remove();
+		for (var i = 0; i < Hangman.letterPos.length; i++){
+			Hangman.letterPos[i].values.top.to = -200 - (50 * (Hangman.letterPos.length - i));
+			Hangman.letterPos[i].state = 0;
+		}
 
 		// Set the word
 		Hangman.currentWord = word;

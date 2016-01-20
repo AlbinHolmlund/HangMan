@@ -12,14 +12,44 @@ HangmanWords = [
 	{
 		word: "JAVASCRIPT",
 		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
+	},
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
+	},
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
 	}
 ];
 Hangman = {
 	currentIndex: 0,
 	currentWord: null,
+	guessesIndex: 0,
 	usedLetters: {},
 	correctLetters: {},
-	positions: {}
+	positions: {},
+	letterPos: []
 };
 
 

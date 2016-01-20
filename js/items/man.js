@@ -91,7 +91,7 @@
 		manRotations.values.head.to = -20;
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
-		manRotations.values.rope.to = 5;
+		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
 	});

@@ -12,14 +12,44 @@ HangmanWords = [
 	{
 		word: "JAVASCRIPT",
 		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
+	},
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
+	},
+	{
+		word: "BACON",
+		clue: "A food item"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "A programming language"
+	},
+	{
+		word: "HTML",
+		clue: "Hypertext markup"
 	}
 ];
 Hangman = {
 	currentIndex: 0,
 	currentWord: null,
+	guessesIndex: 0,
 	usedLetters: {},
 	correctLetters: {},
-	positions: {}
+	positions: {},
+	letterPos: []
 };
 
 
@@ -124,12 +154,17 @@ MoveTo.addFrame(function (){
 		// Resets
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
+		Hangman.guessesIndex = 0;
 
 		// Empty the underscores
 		$underscores.html('');
 
 		// Remove all letters
-		$('.letter').remove();
+		//$('.letter').remove();
+		for (var i = 0; i < Hangman.letterPos.length; i++){
+			Hangman.letterPos[i].values.top.to = -200 - (50 * (Hangman.letterPos.length - i));
+			Hangman.letterPos[i].state = 0;
+		}
 
 		// Set the word
 		Hangman.currentWord = word;
@@ -165,7 +200,8 @@ MoveTo.addFrame(function (){
 
 (function (){
 	// Create a letter
-	function createLetter(letter, underscore){
+	function createLetter(letter, position){
+		// Create the letter
 		var $letter = $('<div>');
 		$letter.addClass('letter');
 		$letter.html(letter);
@@ -174,12 +210,13 @@ MoveTo.addFrame(function (){
 		$('body').append($letter);
 
 		// Init position at the input box
-		var $input = $('.guess-letter-input input');
+		var $input = $('.guess-letter-input');
 		var initTop = $input.offset().top + ($input.height()/2) - ($letter.height()/2),
 			initLeft = $input.offset().left + ($input.width()/2) - ($letter.width()/2);
 
 		// Move to position
 		var pos = {
+			state: 1,
 			values: {
 				top: {
 					current: initTop,
@@ -193,11 +230,23 @@ MoveTo.addFrame(function (){
 		}
 		MoveTo.add(pos);
 
+		// 
+		Hangman.letterPos.push(pos);
+
 		// Position letters each frame
 		MoveTo.addFrame(function (){
-			pos.values.top.to = underscore.offset().top - ($('#scene').width() * 0.01);
-			pos.values.left.to = underscore.offset().left + ($('#scene').width() * 0.005);
+			/*
+				State 0 = No fixed movement
+				State 1 = Fixed to the position element
+			*/
+			if (pos.state === 1){
+				if (position){
+					pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
+					pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+				}
+			}
 
+			// Set new position
 			$letter.css({
 				top: pos.values.top.current,
 				left: pos.values.left.current
@@ -208,26 +257,24 @@ MoveTo.addFrame(function (){
 
 	// Check if letter exist in word
 	function checkLetter(letter){
-		var letterExist = 0;
+		var check = {
+				match: 0,
+				indexes: []
+			};
 
-		// Check if letter is used
-		if (!Hangman.usedLetters[letter]){
-			for (var i = 0; i < Hangman.currentWord.length; i++){
-				if (Hangman.currentWord[i] === letter){
-					/** Match **/
-					letterExist = 1;
-
-					// Get underscore matching the letter
-					var $underscore = $('[data-letter="' + i + '"]');
-
-					// Create the letter
-					createLetter(letter, $underscore);
-				}
+		// Check if there is a matching letter in the word
+		for (var i = 0; i < Hangman.currentWord.length; i++){
+			if (Hangman.currentWord[i] === letter){
+				/** Match **/
+				check.match = 1;
+				check.indexes.push( i );
 			}
-			// Letter is used
-			Hangman.usedLetters[letter] = true;
-			Hangman.correctLetters[letter] = true; 
 		}
+		// Letter is correct
+		Hangman.correctLetters[letter] = true; 
+
+		// Letter is used
+		Hangman.usedLetters[letter] = true;
 
 		// Check if word is solved yet
 		var solved = true;
@@ -241,33 +288,59 @@ MoveTo.addFrame(function (){
 			}
 		}
 		if (solved){
-			letterExist = 2;
+			check.match = 2;
 		}
 
-		return letterExist;
+		return check;
 	}
 
 	// Add more input submit events?
-	$('.guess-letter-input input').on('input', function (e){
-		var $this = $(this);
-		var letter = $this.val().toUpperCase();
+	$(document).on('keydown', function (e){
+		var letter = String.fromCharCode(e.which).toUpperCase();
 
-		if (letter.length > 1){
-			$this.val(letter[0]);
+		// Validate
+		if (letter.length === 1 && letter.match(/[a-z]/i)){
+			console.log(letter);
+		} else {
+			return false;
+		}
+
+		// Check if letter is used
+		if (Hangman.usedLetters[letter]){
+			return false;
 		}
 
 		var check = checkLetter(letter);
-		$this.val('');
 
 		// Check feedback
-		if (check === 0){
+		if (check.match === 0){
 			console.log("Letter dont exist");
+			// Setup the letter
+			// Get underscore matching the letter
+			var $guess = $('[data-guess="' + Hangman.guessesIndex + '"]');
+			Hangman.guessesIndex++;
+			// Create the letter
+			createLetter(letter, $guess);
 		}
-		else if (check === 1){
+		else if (check.match === 1){
 			console.log("Letter exist");
+			// Setup the letters
+			for (var i = 0; i < check.indexes.length; i++){
+				// Get underscore matching the letter
+				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+				// Create the letter
+				createLetter(letter, $underscore);
+			}
 		}
-		else if (check === 2){
+		else if (check.match === 2){
 			console.log("Word solved");
+			// Setup the letters
+			for (var i = 0; i < check.indexes.length; i++){
+				// Get underscore matching the letter
+				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+				// Create the letter
+				createLetter(letter, $underscore);
+			}
 
 			// Change to next word
 			setTimeout(function (){
@@ -275,9 +348,6 @@ MoveTo.addFrame(function (){
 				Hangman.initWord();
 			}, 500);
 		}
-	});
-	$(document).on('keydown', function (){
-		$('.guess-letter-input input').focus();
 	});
 
 })($);
@@ -422,7 +492,7 @@ MoveTo.addFrame(function (){
 		manRotations.values.head.to = -20;
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
-		manRotations.values.rope.to = 5;
+		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
 	});

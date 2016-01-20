@@ -141,24 +141,45 @@ $uiPadding: 2rem;
 			margin-top: 3rem;
 		}
 		&-input{
-			input{
-				outline: none;
-				border: none;
+			height: 10rem;
+			width: 10rem;
 
-				color: #fff;
-				height: 10rem;
-				width: 10rem;
+			text-align: center;
+			font-size: $wordFontSize;
+			font-family: inherit;
 
-				text-align: center;
-				font-size: $wordFontSize;
-				font-family: inherit;
+			background: none;
+			background-image: url(./img/texture2.svg);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 100% auto;
+		}
+	}
+}
 
-				background: none;
-				background-image: url(./img/texture2.svg);
-				background-position: center;
-				background-repeat: no-repeat;
-				background-size: 100% auto;
-			}
+// Guesses
+.guesses{
+	.guess{
+		position: absolute;
+		bottom: 20%;
+		height: 2rem;
+		width: 2rem;
+		background: red;
+		left: 50%;
+		&:nth-child(1){
+			
+		}
+		&:nth-child(2){
+			margin-left: 3rem;
+		}
+		&:nth-child(3){
+			margin-left: 3rem * 2;
+		}
+		&:nth-child(4){
+			margin-left: 3rem * 3;
+		}
+		&:nth-child(5){
+			margin-left: 3rem * 4;
 		}
 	}
 }

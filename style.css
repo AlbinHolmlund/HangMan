@@ -85,10 +85,7 @@ h1 {
     #ui .guess-letter h2 {
       margin: 0;
       margin-top: 3rem; }
-    #ui .guess-letter-input input {
-      outline: none;
-      border: none;
-      color: #fff;
+    #ui .guess-letter-input {
       height: 10rem;
       width: 10rem;
       text-align: center;
@@ -99,6 +96,22 @@ h1 {
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100% auto; }
+
+.guesses .guess {
+  position: absolute;
+  bottom: 20%;
+  height: 2rem;
+  width: 2rem;
+  background: red;
+  left: 50%; }
+  .guesses .guess:nth-child(2) {
+    margin-left: 3rem; }
+  .guesses .guess:nth-child(3) {
+    margin-left: 6rem; }
+  .guesses .guess:nth-child(4) {
+    margin-left: 9rem; }
+  .guesses .guess:nth-child(5) {
+    margin-left: 12rem; }
 
 .letter {
   position: absolute;
