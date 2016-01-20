@@ -99,7 +99,7 @@
 
 	// Add more input submit events?
 	$(document).on('keydown', function (e){
-		if (Hangman.lost === false){
+		if (Hangman.stop === false){
 			var letter = String.fromCharCode(e.which).toUpperCase();
 
 			// Validate
@@ -162,6 +162,12 @@
 						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
 						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
 					});
+				}
+
+				// Check if won
+				if (Hangman.currentIndex === HangmanWords.length-1){
+					Hangman.wonGame();
+					return false;
 				}
 
 				// Change to next word

@@ -7,7 +7,7 @@
 HangmanWords = [
 	{
 		word: "JAVASCRIPT",
-		clue: "A programming language"
+		clue: "Web programming language"
 	},
 	{
 		word: "FIREBASE",
@@ -16,10 +16,14 @@ HangmanWords = [
 	{
 		word: "HTML",
 		clue: "Hypertext markup"
+	},
+	{
+		word: "SASS",
+		clue: "CSS preprocessor"
 	}
 ];
 Hangman = {
-	lost: false,
+	stop: false,
 	currentIndex: 0,
 	currentWord: null,
 	guessesIndex: 0,
@@ -115,7 +119,10 @@ MoveTo.addFrame(function (){
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
 		Hangman.guessesIndex = 0;
-		Hangman.lost = false;
+		Hangman.stop = false;
+
+		// Set question number
+		$('.question-number').html((Hangman.currentIndex+1) + '/' + HangmanWords.length);
 
 		// Empty the underscores
 		$underscores.html('');
@@ -256,7 +263,7 @@ MoveTo.addFrame(function (){
 
 	// Add more input submit events?
 	$(document).on('keydown', function (e){
-		if (Hangman.lost === false){
+		if (Hangman.stop === false){
 			var letter = String.fromCharCode(e.which).toUpperCase();
 
 			// Validate
@@ -319,6 +326,12 @@ MoveTo.addFrame(function (){
 						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
 						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
 					});
+				}
+
+				// Check if won
+				if (Hangman.currentIndex === HangmanWords.length-1){
+					Hangman.wonGame();
+					return false;
 				}
 
 				// Change to next word
@@ -475,14 +488,35 @@ MoveTo.addFrame(function (){
 		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
+		$body.addClass('dead');
 
-		Hangman.lost = true;
+		Hangman.stop = true;
+
+		$('.lost').addClass('active');
 	}
-	/*$('body').click(function (){
-		// Activate rope swing
-		manStates.ropeSwing = true;
-		manRotations.values.rope.to = 5;
-	});*/
+	Hangman.wonGame = function (){
+		Hangman.stop = true;
+
+		$('.won').addClass('active');
+	}
+	Hangman.restartGame = function (){
+		manRotations.values.head.to = 0;
+		manRotations.values.feet.to = 0;
+		manStates.ropeSwing = false;
+		manRotations.values.rope.to = 0;
+
+		$chair.removeClass('pushed');
+		$body.removeClass('dead');
+
+		Hangman.currentIndex = 0;
+		Hangman.initWord();
+		Hangman.stop = false;
+
+		$('.lost, .won').removeClass('active');
+	}
+	$('.lost [data-restart], .won [data-restart]').click(function (){
+		Hangman.restartGame();
+	});
 
 })($);
 

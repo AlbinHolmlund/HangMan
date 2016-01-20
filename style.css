@@ -16,6 +16,7 @@ html, body {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  background: #fff;
   font-family: 'butchregular'; }
 
 html {
@@ -38,6 +39,7 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
+  overflow: hidden;
   width: 100vw;
   height: 56.25vw;
   max-width: 177.7777777778vh;
@@ -116,11 +118,54 @@ h1 {
     #ui .guesses .guess:nth-child(5) {
       margin-left: 24rem; }
 
+.question-number {
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  font-size: 2rem; }
+
 .letter {
   position: absolute;
   font-size: 3rem;
   color: #fff;
   mix-blend-mode: difference; }
+
+.lost, .won {
+  position: absolute;
+  text-align: center;
+  color: #000;
+  z-index: 1010;
+  padding: 2rem 4rem 0.5rem 4rem;
+  background-image: url(./img/texture4.svg);
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  bottom: 10%;
+  right: 0;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 1s ease-in-out; }
+  .lost.active, .won.active {
+    transform: translateX(-50%);
+    opacity: 1; }
+  .lost h2, .won h2 {
+    margin: 0;
+    font-size: 4rem; }
+  .lost button, .won button {
+    border: 0;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-family: inherit;
+    color: #fff;
+    font-size: 3rem;
+    padding: 4rem;
+    background-image: url(./img/texture5.svg);
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    cursor: pointer; }
 
 /**** ITEMS ****/
 .sun {
@@ -173,7 +218,10 @@ h1 {
     background-image: url(./img/man/body.png);
     background-size: 100%;
     background-position: center;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat;
+    transition: top 0.4s; }
+    .rope .body.dead {
+      top: 110%; }
     .rope .body .head {
       position: absolute;
       width: 126px;

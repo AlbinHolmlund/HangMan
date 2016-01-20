@@ -94,13 +94,34 @@
 		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
+		$body.addClass('dead');
 
-		Hangman.lost = true;
+		Hangman.stop = true;
+
+		$('.lost').addClass('active');
 	}
-	/*$('body').click(function (){
-		// Activate rope swing
-		manStates.ropeSwing = true;
-		manRotations.values.rope.to = 5;
-	});*/
+	Hangman.wonGame = function (){
+		Hangman.stop = true;
+
+		$('.won').addClass('active');
+	}
+	Hangman.restartGame = function (){
+		manRotations.values.head.to = 0;
+		manRotations.values.feet.to = 0;
+		manStates.ropeSwing = false;
+		manRotations.values.rope.to = 0;
+
+		$chair.removeClass('pushed');
+		$body.removeClass('dead');
+
+		Hangman.currentIndex = 0;
+		Hangman.initWord();
+		Hangman.stop = false;
+
+		$('.lost, .won').removeClass('active');
+	}
+	$('.lost [data-restart], .won [data-restart]').click(function (){
+		Hangman.restartGame();
+	});
 
 })($);

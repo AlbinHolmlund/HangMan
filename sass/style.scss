@@ -35,6 +35,8 @@ html, body{
 	margin: 0;
 	overflow: hidden;
 
+	background: #fff;
+
 	font-family: 'butchregular';
 }
 $borderWidth: 40px;
@@ -69,7 +71,7 @@ h2{
 	transform: translate(-50%, -50%);
 
 	margin: 0 auto;
-	//overflow: hidden;
+	overflow: hidden;
 
 	@include viewportRatio(16,9);
 }
@@ -189,6 +191,14 @@ $uiPadding: 2rem;
 	}
 }
 
+// Question number
+.question-number{
+	position: absolute;
+	left: 5%;
+	bottom: 5%;
+	font-size: 2rem;
+}
+
 // Letter
 .letter{
 	position: absolute;
@@ -196,6 +206,55 @@ $uiPadding: 2rem;
 	color: #fff;
 
     mix-blend-mode: difference;
+}
+
+// Lose screen
+.lost, .won{
+	position: absolute;
+
+	text-align: center;
+
+	color: #000;
+	z-index: $uiLayer + 10;
+
+	padding: 2rem 4rem 0.5rem 4rem;
+	background-image: url(./img/texture4.svg);
+	background-position: center;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+
+	bottom: 10%;
+	right: 0;
+	opacity: 0;
+	transform: translateX(100%);
+	transition: all 1s ease-in-out;
+	&.active{
+		transform: translateX(-50%);
+		opacity: 1;
+	}
+	h2{
+		margin: 0;
+		font-size: 4rem;
+	}
+	button{
+		border: 0;
+		outline: 0;
+		padding: 0;
+		margin: 0;
+		background: none;
+
+		font-family: inherit;
+		color: #fff;
+		font-size: 3rem;
+		padding: 4rem;
+
+		background-image: url(./img/texture5.svg);
+		background-position: center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+
+		cursor: pointer;
+	}
 }
 
 /**** ITEMS ****/
@@ -275,6 +334,10 @@ $uiPadding: 2rem;
 		background-position: center;
 		background-repeat: no-repeat;
 
+		transition: top 0.4s;
+		&.dead{
+			top: 110%;
+		}
 		.head{
 			position: absolute;
 

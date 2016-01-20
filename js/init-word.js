@@ -17,7 +17,10 @@
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
 		Hangman.guessesIndex = 0;
-		Hangman.lost = false;
+		Hangman.stop = false;
+
+		// Set question number
+		$('.question-number').html((Hangman.currentIndex+1) + '/' + HangmanWords.length);
 
 		// Empty the underscores
 		$underscores.html('');

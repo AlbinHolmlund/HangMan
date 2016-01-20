@@ -7,7 +7,7 @@
 HangmanWords = [
 	{
 		word: "JAVASCRIPT",
-		clue: "A programming language"
+		clue: "Web programming language"
 	},
 	{
 		word: "FIREBASE",
@@ -16,10 +16,14 @@ HangmanWords = [
 	{
 		word: "HTML",
 		clue: "Hypertext markup"
+	},
+	{
+		word: "SASS",
+		clue: "CSS preprocessor"
 	}
 ];
 Hangman = {
-	lost: false,
+	stop: false,
 	currentIndex: 0,
 	currentWord: null,
 	guessesIndex: 0,
