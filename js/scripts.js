@@ -6,36 +6,12 @@
 */
 HangmanWords = [
 	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
 		word: "JAVASCRIPT",
 		clue: "A programming language"
 	},
 	{
-		word: "HTML",
-		clue: "Hypertext markup"
-	},
-	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
-		word: "JAVASCRIPT",
-		clue: "A programming language"
-	},
-	{
-		word: "HTML",
-		clue: "Hypertext markup"
-	},
-	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
-		word: "JAVASCRIPT",
-		clue: "A programming language"
+		word: "FIREBASE",
+		clue: "Cloud based databases"
 	},
 	{
 		word: "HTML",
@@ -43,6 +19,7 @@ HangmanWords = [
 	}
 ];
 Hangman = {
+	lost: false,
 	currentIndex: 0,
 	currentWord: null,
 	guessesIndex: 0,
@@ -52,6 +29,7 @@ Hangman = {
 	letterPos: []
 };
 
+// Lost game function is in items/man.js
 
 
 // @codekit-append "mouse-position.js"
@@ -80,22 +58,3 @@ MoveTo.addFrame(function (){
 		fontSize: $('#scene').width()/100
 	});
 });
-
-
-// Position UI based on mouse movement
-/*
-var $ui = $('#ui');
-MoveTo.addFrame(function (){
-	var top = -$ui.height()/2,
-		left = 0;
-
-	top -= Hangman.positions.mousePos.y.current * 0.2;
-	left -= Hangman.positions.mousePos.x.current * 0.2;
-
-	var trans = "translate(" + left + "px, " + top + "px) ";
-
-	$ui.css({
-		transform: trans
-	});
-});
-*/

@@ -87,14 +87,16 @@
 	});
 
 	// TEST: Activate states
-	$('body').click(function (){
+	Hangman.lostGame = function (){
 		manRotations.values.head.to = -20;
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
 		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
-	});
+
+		Hangman.lost = true;
+	}
 	/*$('body').click(function (){
 		// Activate rope swing
 		manStates.ropeSwing = true;

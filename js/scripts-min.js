@@ -6,36 +6,12 @@
 */
 HangmanWords = [
 	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
 		word: "JAVASCRIPT",
 		clue: "A programming language"
 	},
 	{
-		word: "HTML",
-		clue: "Hypertext markup"
-	},
-	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
-		word: "JAVASCRIPT",
-		clue: "A programming language"
-	},
-	{
-		word: "HTML",
-		clue: "Hypertext markup"
-	},
-	{
-		word: "BACON",
-		clue: "A food item"
-	},
-	{
-		word: "JAVASCRIPT",
-		clue: "A programming language"
+		word: "FIREBASE",
+		clue: "Cloud based databases"
 	},
 	{
 		word: "HTML",
@@ -43,6 +19,7 @@ HangmanWords = [
 	}
 ];
 Hangman = {
+	lost: false,
 	currentIndex: 0,
 	currentWord: null,
 	guessesIndex: 0,
@@ -52,6 +29,7 @@ Hangman = {
 	letterPos: []
 };
 
+// Lost game function is in items/man.js
 
 
 // @codekit-append "mouse-position.js"
@@ -81,24 +59,6 @@ MoveTo.addFrame(function (){
 	});
 });
 
-
-// Position UI based on mouse movement
-/*
-var $ui = $('#ui');
-MoveTo.addFrame(function (){
-	var top = -$ui.height()/2,
-		left = 0;
-
-	top -= Hangman.positions.mousePos.y.current * 0.2;
-	left -= Hangman.positions.mousePos.x.current * 0.2;
-
-	var trans = "translate(" + left + "px, " + top + "px) ";
-
-	$ui.css({
-		transform: trans
-	});
-});
-*/
 
 
 (function (){
@@ -155,6 +115,7 @@ MoveTo.addFrame(function (){
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
 		Hangman.guessesIndex = 0;
+		Hangman.lost = false;
 
 		// Empty the underscores
 		$underscores.html('');
@@ -200,7 +161,7 @@ MoveTo.addFrame(function (){
 
 (function (){
 	// Create a letter
-	function createLetter(letter, position){
+	function createLetter(letter, position, positionFunction){
 		// Create the letter
 		var $letter = $('<div>');
 		$letter.addClass('letter');
@@ -241,8 +202,7 @@ MoveTo.addFrame(function (){
 			*/
 			if (pos.state === 1){
 				if (position){
-					pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
-					pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					positionFunction(pos, position, $letter);
 				}
 			}
 
@@ -296,57 +256,77 @@ MoveTo.addFrame(function (){
 
 	// Add more input submit events?
 	$(document).on('keydown', function (e){
-		var letter = String.fromCharCode(e.which).toUpperCase();
+		if (Hangman.lost === false){
+			var letter = String.fromCharCode(e.which).toUpperCase();
 
-		// Validate
-		if (letter.length === 1 && letter.match(/[a-z]/i)){
-			console.log(letter);
-		} else {
-			return false;
-		}
-
-		// Check if letter is used
-		if (Hangman.usedLetters[letter]){
-			return false;
-		}
-
-		var check = checkLetter(letter);
-
-		// Check feedback
-		if (check.match === 0){
-			console.log("Letter dont exist");
-			// Setup the letter
-			// Get underscore matching the letter
-			var $guess = $('[data-guess="' + Hangman.guessesIndex + '"]');
-			Hangman.guessesIndex++;
-			// Create the letter
-			createLetter(letter, $guess);
-		}
-		else if (check.match === 1){
-			console.log("Letter exist");
-			// Setup the letters
-			for (var i = 0; i < check.indexes.length; i++){
-				// Get underscore matching the letter
-				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
-				// Create the letter
-				createLetter(letter, $underscore);
-			}
-		}
-		else if (check.match === 2){
-			console.log("Word solved");
-			// Setup the letters
-			for (var i = 0; i < check.indexes.length; i++){
-				// Get underscore matching the letter
-				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
-				// Create the letter
-				createLetter(letter, $underscore);
+			// Validate
+			if (letter.length === 1 && letter.match(/[a-z]/i)){
+				console.log(letter);
+			} else {
+				return false;
 			}
 
-			// Change to next word
-			setTimeout(function (){
-				Hangman.currentIndex++;
-				Hangman.initWord();
-			}, 500);
+			// Check if letter is used
+			if (Hangman.usedLetters[letter]){
+				return false;
+			}
+
+			var check = checkLetter(letter);
+
+			// Check feedback
+			if (check.match === 0){
+				console.log("Letter dont exist");
+				// Setup the letter
+				// Get underscore matching the letter
+				var $guess = $('[data-guess="' + Hangman.guessesIndex + '"]');
+				Hangman.guessesIndex++;
+
+				// Create the letter
+				createLetter(letter, $guess, function (pos, position, $letter){
+					pos.values.top.to = (position.offset().top + position.height()/2) - $letter.height()/2;
+					pos.values.left.to = (position.offset().left + position.width()/2) - $letter.width()/2;
+				});
+
+				// Check if game is lost
+				console.log(Hangman.guessesIndex);
+				if (Hangman.guessesIndex == 5){
+					// Lost game
+					Hangman.lostGame();
+					return false;
+				}
+			}
+			else if (check.match === 1){
+				console.log("Letter exist");
+				// Setup the letters
+				for (var i = 0; i < check.indexes.length; i++){
+					// Get underscore matching the letter
+					var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+					// Create the letter
+					createLetter(letter, $underscore, function (pos, position){
+						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
+						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					});
+				}
+			}
+			else if (check.match === 2){
+				console.log("Word solved");
+				// Setup the letters
+				for (var i = 0; i < check.indexes.length; i++){
+					// Get underscore matching the letter
+					var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+					// Create the letter
+					createLetter(letter, $underscore, function (pos, position){
+						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
+						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					});
+				}
+
+				// Change to next word
+				setTimeout(function (){
+					Hangman.currentIndex++;
+					Hangman.initWord();
+				}, 500);
+			}
 		}
 	});
 
@@ -488,14 +468,16 @@ MoveTo.addFrame(function (){
 	});
 
 	// TEST: Activate states
-	$('body').click(function (){
+	Hangman.lostGame = function (){
 		manRotations.values.head.to = -20;
 		manRotations.values.feet.to = -20;
 		manStates.ropeSwing = true;
 		manRotations.values.rope.to = -5;
 
 		$chair.addClass('pushed');
-	});
+
+		Hangman.lost = true;
+	}
 	/*$('body').click(function (){
 		// Activate rope swing
 		manStates.ropeSwing = true;

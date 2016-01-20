@@ -96,22 +96,25 @@ h1 {
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100% auto; }
-
-.guesses .guess {
-  position: absolute;
-  bottom: 20%;
-  height: 2rem;
-  width: 2rem;
-  background: red;
-  left: 50%; }
-  .guesses .guess:nth-child(2) {
-    margin-left: 3rem; }
-  .guesses .guess:nth-child(3) {
-    margin-left: 6rem; }
-  .guesses .guess:nth-child(4) {
-    margin-left: 9rem; }
-  .guesses .guess:nth-child(5) {
-    margin-left: 12rem; }
+  #ui .guesses .guess {
+    position: absolute;
+    bottom: 10%;
+    height: 5rem;
+    width: 5rem;
+    left: 50%;
+    background: none;
+    background-image: url(./img/texture3.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% auto; }
+    #ui .guesses .guess:nth-child(2) {
+      margin-left: 6rem; }
+    #ui .guesses .guess:nth-child(3) {
+      margin-left: 12rem; }
+    #ui .guesses .guess:nth-child(4) {
+      margin-left: 18rem; }
+    #ui .guesses .guess:nth-child(5) {
+      margin-left: 24rem; }
 
 .letter {
   position: absolute;

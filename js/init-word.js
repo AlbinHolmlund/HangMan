@@ -17,6 +17,7 @@
 		Hangman.usedLetters = {};
 		Hangman.correctLetters = {};
 		Hangman.guessesIndex = 0;
+		Hangman.lost = false;
 
 		// Empty the underscores
 		$underscores.html('');

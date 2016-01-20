@@ -4,7 +4,7 @@
 
 (function (){
 	// Create a letter
-	function createLetter(letter, position){
+	function createLetter(letter, position, positionFunction){
 		// Create the letter
 		var $letter = $('<div>');
 		$letter.addClass('letter');
@@ -45,8 +45,7 @@
 			*/
 			if (pos.state === 1){
 				if (position){
-					pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
-					pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					positionFunction(pos, position, $letter);
 				}
 			}
 
@@ -100,57 +99,77 @@
 
 	// Add more input submit events?
 	$(document).on('keydown', function (e){
-		var letter = String.fromCharCode(e.which).toUpperCase();
+		if (Hangman.lost === false){
+			var letter = String.fromCharCode(e.which).toUpperCase();
 
-		// Validate
-		if (letter.length === 1 && letter.match(/[a-z]/i)){
-			console.log(letter);
-		} else {
-			return false;
-		}
-
-		// Check if letter is used
-		if (Hangman.usedLetters[letter]){
-			return false;
-		}
-
-		var check = checkLetter(letter);
-
-		// Check feedback
-		if (check.match === 0){
-			console.log("Letter dont exist");
-			// Setup the letter
-			// Get underscore matching the letter
-			var $guess = $('[data-guess="' + Hangman.guessesIndex + '"]');
-			Hangman.guessesIndex++;
-			// Create the letter
-			createLetter(letter, $guess);
-		}
-		else if (check.match === 1){
-			console.log("Letter exist");
-			// Setup the letters
-			for (var i = 0; i < check.indexes.length; i++){
-				// Get underscore matching the letter
-				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
-				// Create the letter
-				createLetter(letter, $underscore);
-			}
-		}
-		else if (check.match === 2){
-			console.log("Word solved");
-			// Setup the letters
-			for (var i = 0; i < check.indexes.length; i++){
-				// Get underscore matching the letter
-				var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
-				// Create the letter
-				createLetter(letter, $underscore);
+			// Validate
+			if (letter.length === 1 && letter.match(/[a-z]/i)){
+				console.log(letter);
+			} else {
+				return false;
 			}
 
-			// Change to next word
-			setTimeout(function (){
-				Hangman.currentIndex++;
-				Hangman.initWord();
-			}, 500);
+			// Check if letter is used
+			if (Hangman.usedLetters[letter]){
+				return false;
+			}
+
+			var check = checkLetter(letter);
+
+			// Check feedback
+			if (check.match === 0){
+				console.log("Letter dont exist");
+				// Setup the letter
+				// Get underscore matching the letter
+				var $guess = $('[data-guess="' + Hangman.guessesIndex + '"]');
+				Hangman.guessesIndex++;
+
+				// Create the letter
+				createLetter(letter, $guess, function (pos, position, $letter){
+					pos.values.top.to = (position.offset().top + position.height()/2) - $letter.height()/2;
+					pos.values.left.to = (position.offset().left + position.width()/2) - $letter.width()/2;
+				});
+
+				// Check if game is lost
+				console.log(Hangman.guessesIndex);
+				if (Hangman.guessesIndex == 5){
+					// Lost game
+					Hangman.lostGame();
+					return false;
+				}
+			}
+			else if (check.match === 1){
+				console.log("Letter exist");
+				// Setup the letters
+				for (var i = 0; i < check.indexes.length; i++){
+					// Get underscore matching the letter
+					var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+					// Create the letter
+					createLetter(letter, $underscore, function (pos, position){
+						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
+						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					});
+				}
+			}
+			else if (check.match === 2){
+				console.log("Word solved");
+				// Setup the letters
+				for (var i = 0; i < check.indexes.length; i++){
+					// Get underscore matching the letter
+					var $underscore = $('[data-letter="' + check.indexes[i] + '"]');
+					// Create the letter
+					createLetter(letter, $underscore, function (pos, position){
+						pos.values.top.to = position.offset().top - ($('#scene').width() * 0.01);
+						pos.values.left.to = position.offset().left + ($('#scene').width() * 0.005);
+					});
+				}
+
+				// Change to next word
+				setTimeout(function (){
+					Hangman.currentIndex++;
+					Hangman.initWord();
+				}, 500);
+			}
 		}
 	});
 
