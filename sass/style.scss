@@ -127,12 +127,17 @@ $uiPadding: 2rem;
 		background-image: url(./img/texture1.svg);
 		background-position: center;
 		background-size: 100% auto;
-
+		background-repeat: no-repeat;
+		&-title{
+			font-size: 2rem;
+		}
+		&-text{
+			font-size: 2.5rem;
+		}
 		&-title, &-text{
 			margin: 0;
 			margin-left: 1rem;
 			font-weight: 400;
-			font-size: 2.5rem;
 		}
 	}
 	// Guess letter

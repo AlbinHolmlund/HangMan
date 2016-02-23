@@ -1,7 +1,4 @@
-/*
-	TODO:
-		Fix a nice animation when reinitiating a word.
-*/
+
 
 
 (function (){
@@ -11,7 +8,9 @@
 	// Init a word
 	Hangman.initWord = function (){
 		var word = HangmanWords[Hangman.currentIndex].word,
-			clue = HangmanWords[Hangman.currentIndex].clue;
+			clue = HangmanWords[Hangman.currentIndex].clue,
+			size = HangmanWords[Hangman.currentIndex].size,
+			letterSize = HangmanWords[Hangman.currentIndex].letterSize;
 
 		// Resets
 		Hangman.usedLetters = {};
@@ -37,6 +36,20 @@
 
 		// Set the clue
 		$clue.html(clue);
+		// Set clue size
+		if (size === "small"){
+			$clue.css('fontSize', '2rem');
+		} else {
+			$clue.css('fontSize', '');
+		}
+		// Set letters size
+		if (letterSize){
+			$('.underscores').css('fontSize', letterSize);
+			$('body').append('<style id="letterSizeStyle">.letter{font-size: '+letterSize+';}</style>');
+		} else {
+			$('.underscores').css('fontSize', '');
+			$('#letterSizeStyle').remove();
+		}
 
 		// Add the underscores
 		for (var i = 0; i < Hangman.currentWord.length; i++){

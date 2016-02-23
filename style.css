@@ -76,12 +76,16 @@ h1 {
     padding: 2rem;
     background-image: url(./img/texture1.svg);
     background-position: center;
-    background-size: 100% auto; }
+    background-size: 100% auto;
+    background-repeat: no-repeat; }
+    #ui .clue-title {
+      font-size: 2rem; }
+    #ui .clue-text {
+      font-size: 2.5rem; }
     #ui .clue-title, #ui .clue-text {
       margin: 0;
       margin-left: 1rem;
-      font-weight: 400;
-      font-size: 2.5rem; }
+      font-weight: 400; }
   #ui .guess-letter {
     margin-left: 1rem; }
     #ui .guess-letter h2 {

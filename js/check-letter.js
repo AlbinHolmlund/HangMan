@@ -1,6 +1,4 @@
-/*
-	Check if letter i used before.
-*/
+
 
 (function (){
 	// Create a letter
@@ -97,13 +95,13 @@
 		return check;
 	}
 
-	// Add more input submit events?
+	// Key event
 	$(document).on('keydown', function (e){
 		if (Hangman.stop === false){
 			var letter = String.fromCharCode(e.which).toUpperCase();
 
 			// Validate
-			if (letter.length === 1 && letter.match(/[a-z]/i)){
+			if (letter.length === 1 && letter.match(/[a-z,0-9]/i)){
 				console.log(letter);
 			} else {
 				return false;

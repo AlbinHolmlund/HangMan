@@ -6,22 +6,54 @@
 */
 HangmanWords = [
 	{
-		word: "JAVASCRIPT",
-		clue: "Web programming language"
+		word: "JSON",
+		clue: "Alternative to XML",
 	},
 	{
-		word: "FIREBASE",
-		clue: "Cloud based databases"
+		word: "ECMASCRIPT2015",
+		clue: "The latest version of javascript",
+		size: "small",
+		letterSize: "2rem"
+	},
+	{
+		word: "BABEL",
+		clue: "Compiler for the latest version of javascript",
+		size: "small"
+	},
+	{
+		word: "DIV",
+		clue: "The most common HTML element",
+		size: "small"
+	},
+	{
+		word: "SASS",
+		clue: "CSS preprocessor"
 	},
 	{
 		word: "HTML",
 		clue: "Hypertext markup"
 	},
 	{
-		word: "SASS",
-		clue: "CSS preprocessor"
+		word: "FIREBASE",
+		clue: "Cloud based database provider",
+		size: "small"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "Web programming language"
 	}
 ];
+
+// Shuffle
+function shuffle(o){
+	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+}
+HangmanWords = shuffle(HangmanWords);
+
+// Reverse
+// HangmanWords = HangmanWords.reverse();
+
 Hangman = {
 	stop: false,
 	currentIndex: 0,
@@ -100,10 +132,7 @@ MoveTo.addFrame(function (){
 	});
 })($);
 
-/*
-	TODO:
-		Fix a nice animation when reinitiating a word.
-*/
+
 
 
 (function (){
@@ -113,7 +142,9 @@ MoveTo.addFrame(function (){
 	// Init a word
 	Hangman.initWord = function (){
 		var word = HangmanWords[Hangman.currentIndex].word,
-			clue = HangmanWords[Hangman.currentIndex].clue;
+			clue = HangmanWords[Hangman.currentIndex].clue,
+			size = HangmanWords[Hangman.currentIndex].size,
+			letterSize = HangmanWords[Hangman.currentIndex].letterSize;
 
 		// Resets
 		Hangman.usedLetters = {};
@@ -139,6 +170,20 @@ MoveTo.addFrame(function (){
 
 		// Set the clue
 		$clue.html(clue);
+		// Set clue size
+		if (size === "small"){
+			$clue.css('fontSize', '2rem');
+		} else {
+			$clue.css('fontSize', '');
+		}
+		// Set letters size
+		if (letterSize){
+			$('.underscores').css('fontSize', letterSize);
+			$('body').append('<style id="letterSizeStyle">.letter{font-size: '+letterSize+';}</style>');
+		} else {
+			$('.underscores').css('fontSize', '');
+			$('#letterSizeStyle').remove();
+		}
 
 		// Add the underscores
 		for (var i = 0; i < Hangman.currentWord.length; i++){
@@ -162,9 +207,7 @@ MoveTo.addFrame(function (){
 	});
 })($);
 
-/*
-	Check if letter i used before.
-*/
+
 
 (function (){
 	// Create a letter
@@ -261,13 +304,13 @@ MoveTo.addFrame(function (){
 		return check;
 	}
 
-	// Add more input submit events?
+	// Key event
 	$(document).on('keydown', function (e){
 		if (Hangman.stop === false){
 			var letter = String.fromCharCode(e.which).toUpperCase();
 
 			// Validate
-			if (letter.length === 1 && letter.match(/[a-z]/i)){
+			if (letter.length === 1 && letter.match(/[a-z,0-9]/i)){
 				console.log(letter);
 			} else {
 				return false;
@@ -395,9 +438,6 @@ MoveTo.addFrame(function (){
 
 
 (function (){
-	// Must move the whole body downwards.
-	// A gravestone rise?
-
 	// Elements
 	var $man   = $('<div class="man">'),
 		$rope  = $('<div class="rope">'),

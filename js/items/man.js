@@ -1,9 +1,6 @@
 
 
 (function (){
-	// Must move the whole body downwards.
-	// A gravestone rise?
-
 	// Elements
 	var $man   = $('<div class="man">'),
 		$rope  = $('<div class="rope">'),

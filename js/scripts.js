@@ -6,22 +6,54 @@
 */
 HangmanWords = [
 	{
-		word: "JAVASCRIPT",
-		clue: "Web programming language"
+		word: "JSON",
+		clue: "Alternative to XML",
 	},
 	{
-		word: "FIREBASE",
-		clue: "Cloud based databases"
+		word: "ECMASCRIPT2015",
+		clue: "The latest version of javascript",
+		size: "small",
+		letterSize: "2rem"
+	},
+	{
+		word: "BABEL",
+		clue: "Compiler for the latest version of javascript",
+		size: "small"
+	},
+	{
+		word: "DIV",
+		clue: "The most common HTML element",
+		size: "small"
+	},
+	{
+		word: "SASS",
+		clue: "CSS preprocessor"
 	},
 	{
 		word: "HTML",
 		clue: "Hypertext markup"
 	},
 	{
-		word: "SASS",
-		clue: "CSS preprocessor"
+		word: "FIREBASE",
+		clue: "Cloud based database provider",
+		size: "small"
+	},
+	{
+		word: "JAVASCRIPT",
+		clue: "Web programming language"
 	}
 ];
+
+// Shuffle
+function shuffle(o){
+	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+}
+HangmanWords = shuffle(HangmanWords);
+
+// Reverse
+// HangmanWords = HangmanWords.reverse();
+
 Hangman = {
 	stop: false,
 	currentIndex: 0,
